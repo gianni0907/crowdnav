@@ -26,6 +26,7 @@ catkin_install_python(PROGRAMS
   scripts/camera_perception
   scripts/motion_generation
   scripts/crowd_prediction
+  scripts/plotter
   scripts/send_desired_target_position
   scripts/send_desired_head_config
   scripts/target_setter

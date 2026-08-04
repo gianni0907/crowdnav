@@ -1,0 +1,11 @@
+<launch>
+  <arg name="filename" default="test"/>
+  <arg name="save" default="false"/>
+
+  <param name="filename" value="$(arg filename)"/>
+  <param name="save" value="$(arg save)"/>
+
+  <group ns="crowd_navigation_core">
+      <node pkg="crowd_navigation_core" type="plotter" name="plotter" output="screen" />
+  </group>
+</launch>

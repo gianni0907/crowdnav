@@ -123,7 +123,26 @@ When the nodes are shut down, data are saved as `.json` files in `/tmp/crowdnav/
 ```
 For example: `both_three_rooms_15_0_generator.json`.
 
-Each run produces a `_generator.json` (robot state, control inputs, target, solver data) and a `_predictor.json` (crowd predictions). These logs are self-describing and can be inspected or post-processed with your own analysis tools.
+Each run produces several files that share the same base name and differ by suffix:
+- `_generator.json` — robot state, control inputs, target, and solver data (always produced);
+- `_predictor.json` — crowd predictions (produced when at least one agent is tracked);
+- `_laser.json` — laser detections (produced when the perception mode includes the laser, i.e. `LASER` or `BOTH`);
+- `_camera.json` — camera detections (produced when the perception mode includes the camera, i.e. `CAMERA` or `BOTH`).
+
+These logs are self-describing and can be inspected or post-processed with your own analysis tools.
+
+## Plotting
+A helper node replays a saved run as animations to visualize what happened: the laser and/or camera measurements (depending on the `perception` mode that was used) and the robot motion together with the crowd estimates and predictions.
+```bash
+roslaunch crowd_navigation_core plotter.launch filename:=FILENAME
+```
+where `FILENAME` is the base name of the saved `.json` files, **without** the `_generator`/`_predictor` suffix and **without** the `.json` extension (e.g. use `filename:=both_three_rooms_15_0` for `both_three_rooms_15_0_generator.json`).
+
+To also save the animations as `.mp4` files (written to `/tmp/crowdnav/animations`), add `save:=true`:
+```bash
+roslaunch crowd_navigation_core plotter.launch filename:=FILENAME save:=true
+```
+Saving requires `ffmpeg` to be installed.
 
 ## License
 This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
