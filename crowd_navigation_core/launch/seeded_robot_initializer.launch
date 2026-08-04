@@ -1,0 +1,8 @@
+<launch>
+  <arg name="experiment_seed" default="0" />
+
+  <group ns="crowd_navigation_core">
+    <param name="experiment_seed" value="$(arg experiment_seed)" />
+    <node pkg="crowd_navigation_core" type="seeded_robot_initializer" name="seeded_robot_initializer" output="screen" />
+  </group>
+</launch>

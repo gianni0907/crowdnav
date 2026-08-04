@@ -1,0 +1,18 @@
+# Python dependencies for crowdnav (install into your ROS Python env).
+#
+# NOTE: acados must be installed separately by building from source and
+# installing its Python interface `acados_template`. See:
+#   https://docs.acados.org/installation/  and
+#   https://docs.acados.org/python_interface/
+# The packages below are pip-installable.
+
+numpy<2            # ROS Noetic (cv_bridge/rospy) is built against numpy 1.x; numpy 2.x breaks it
+scipy
+casadi
+shapely
+scikit-learn
+opencv-python
+ultralytics        # YOLO, used by the camera perception module
+
+# ROS-provided packages (rospy, cv_bridge, image_geometry, tf, tf2_ros, and the
+# *_msgs) are installed via rosdep / apt, not pip — see package.xml.

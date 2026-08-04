@@ -1,0 +1,507 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <physics type="ode">
+      <gravity>0 0 -9.81</gravity>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>20</iters>
+          <sor>1.0</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.0</contact_surface_layer>
+        </constraints>
+      </ode>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+    </physics>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <scene>
+      <shadows>false</shadows>
+    </scene>
+
+    <model name="wall_1_model">
+      <pose>0 -5 1 0 0 0</pose>
+      <static>true</static>
+      <link name="wall_1_body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.2 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.2 2</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_2_model">
+      <pose>0 10 1 0 0 0</pose>
+      <static>true</static>
+      <link name="wall_2_body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>10 0.2 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>10 0.2 2</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_3_model">
+      <pose>-5 2.5 1 0 0 0</pose>
+      <static>true</static>
+      <link name="wall_3_body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 15 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 15 2</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_4_model">
+      <pose>5 2.5 1 0 0 0</pose>
+      <static>true</static>
+      <link name="wall_4_body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 15 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 15 2</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_5_model">
+      <pose>-4.1 5 1 0 0 0</pose>
+      <static>true</static>
+      <link name="wall_5_body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.8 0.2 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1.8 0.2 2</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_6_model">
+      <pose>1.6 5 1 0 0 0</pose>
+      <static>true</static>
+      <link name="wall_6_body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>6.8 0.2 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>6.8 0.2 2</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_7_model">
+      <pose>4.1 0 1 0 0 0</pose>
+      <static>true</static>
+      <link name="wall_7_body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.8 0.2 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1.8 0.2 2</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_8_model">
+      <pose>-1.6 0 1 0 0 0</pose>
+      <static>true</static>
+      <link name="wall_8_body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>6.8 0.2 2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>6.8 0.2 2</size>
+            </box>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Actors driven via EnhancedActorPlugin (top/middle/bottom rooms) -->
+    <!-- Top room: 3 humans (static pair + walking solo) -->
+    <actor name="actor_0">
+      <pose>-3.2 7.2 0 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>talk_b.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_0_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>static_pair</behavior>
+        <partner>actor_1</partner>
+        <formation_distance>0.7</formation_distance>
+        <velocity>0.0</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>5.5</min_y>
+        <max_y>9.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <actor name="actor_1">
+      <pose>-2.4 7.2 0 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>talk_b.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_1_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>static_pair</behavior>
+        <partner>actor_0</partner>
+        <formation_distance>0.7</formation_distance>
+        <velocity>0.0</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>5.5</min_y>
+        <max_y>9.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <actor name="actor_2">
+      <pose>2.6 7.0 0 0 0 0</pose>
+      <skin>
+        <filename>moonwalk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_2_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>walking_solo</behavior>
+        <min_waypoint_separation>6.5</min_waypoint_separation>
+        <velocity>0.5</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>5.5</min_y>
+        <max_y>9.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <!-- Middle room: 4 humans (walking pair + static pair) -->
+    <actor name="actor_3">
+      <pose>-1.4 3.2 0 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_3_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>walking_pair</behavior>
+        <partner>actor_4</partner>
+        <formation_distance>0.7</formation_distance>
+        <min_waypoint_separation>6.0</min_waypoint_separation>
+        <velocity>0.5</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>0.5</min_y>
+        <max_y>4.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <actor name="actor_4">
+      <pose>-0.6 3.2 0 0 0 0</pose>
+      <skin>
+        <filename>talk_b.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_4_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>walking_pair</behavior>
+        <partner>actor_3</partner>
+        <formation_distance>0.7</formation_distance>
+        <min_waypoint_separation>6.0</min_waypoint_separation>
+        <velocity>0.5</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>0.5</min_y>
+        <max_y>4.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <actor name="actor_5">
+      <pose>2.4 2.0 0 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>talk_b.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_5_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>static_pair</behavior>
+        <partner>actor_6</partner>
+        <formation_distance>0.7</formation_distance>
+        <velocity>0.0</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>0.5</min_y>
+        <max_y>4.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <actor name="actor_6">
+      <pose>3.2 2.0 0 0 0 0</pose>
+      <skin>
+        <filename>moonwalk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>talk_b.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_6_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>static_pair</behavior>
+        <partner>actor_5</partner>
+        <formation_distance>0.7</formation_distance>
+        <velocity>0.0</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>0.5</min_y>
+        <max_y>4.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <!-- Bottom room: 3 humans (walking pair + walking solo) -->
+    <actor name="actor_7">
+      <pose>-2.8 -2.6 0 0 0 0</pose>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_7_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>walking_pair</behavior>
+        <partner>actor_8</partner>
+        <formation_distance>0.7</formation_distance>
+        <min_waypoint_separation>6.0</min_waypoint_separation>
+        <velocity>0.5</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>-4.5</min_y>
+        <max_y>-0.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <actor name="actor_8">
+      <pose>-2.0 -2.6 0 0 0 0</pose>
+      <skin>
+        <filename>talk_b.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_8_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>walking_pair</behavior>
+        <partner>actor_7</partner>
+        <formation_distance>0.7</formation_distance>
+        <min_waypoint_separation>6.0</min_waypoint_separation>
+        <velocity>0.5</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>-4.5</min_y>
+        <max_y>-0.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <actor name="actor_9">
+      <pose>2.6 -3.4 0 0 0 0</pose>
+      <skin>
+        <filename>moonwalk.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <plugin name="actor_9_traj" filename="libEnhancedActorPlugin.so">
+        <behavior>walking_solo</behavior>
+        <min_waypoint_separation>6.5</min_waypoint_separation>
+        <velocity>0.5</velocity>
+        <min_x>-4.4</min_x>
+        <max_x>4.4</max_x>
+        <min_y>-4.5</min_y>
+        <max_y>-0.5</max_y>
+        <num_waypoints>2</num_waypoints>
+      </plugin>
+    </actor>
+
+    <!-- Obstacles -->
+    <include>
+      <name>wardrobe_0</name>
+      <uri>model://wardrobe</uri>
+      <pose>-2.000000 -5.000000 0.000000 0.000000 0.000000 0.000000</pose>
+    </include>
+    <include>
+      <uri>model://dining_chair</uri>
+      <pose>1.8 -2.0 0 0 0 1.570796</pose>
+    </include>
+    <include>
+      <name>table_0</name>
+      <uri>model://kitchen_table</uri>
+      <pose>1.500000 -2.0 0 0.000000 0.000000 1.570796</pose>
+    </include>
+    <include>
+      <name>floor_lamp_0</name>
+      <uri>model://floor_lamp</uri>
+      <pose>-4.500000 -0.417350 0.000000 0.000000 0.000000 0.000000</pose>
+    </include>
+    <include>
+      <name>sofa_0</name>
+      <uri>model://sofa</uri>
+      <pose>2.0 4.2 0.000000 0.000000 0.000000 0</pose>
+    </include>
+    <include>
+      <uri>model://closet</uri>
+      <pose>1.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+    </include>
+    <include>
+      <name>table_1</name>
+      <uri>model://kitchen_table</uri>
+      <pose>-4.000000 7.551060 0.000000 0.000000 0.000000 0.000000</pose>
+    </include>
+    <include>
+      <name>wardrobe_1</name>
+      <uri>model://wardrobe</uri>
+      <pose>0.000000 5.00000 0.000000 0.000000 0.000000 0</pose>
+    </include>
+    <include>
+      <name>floor_lamp_1</name>
+      <uri>model://floor_lamp</uri>
+      <pose>1.500000 4.617350 0.000000 0.000000 0.000000 0.000000</pose>
+    </include>
+    <include>
+      <name>floor_lamp_2</name>
+      <uri>model://floor_lamp</uri>
+      <pose>0.00000 9.617350 0.000000 0.000000 0.000000 0.000000</pose>
+    </include>
+
+    <gui fullscreen="0">
+      <camera name="user_camera">
+        <pose>0.685291 2.730300 18.477800 0.000000 1.529800 -3.138990</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+  </world>
+</sdf>
